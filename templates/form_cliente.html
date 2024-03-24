@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar cliente</title>
+</head>
+<body>
+    <form class="c-form" 
+    action="{% if cliente %} {{ url_for('clientes.atualizar_clientes', cliente_id=cliente.id) }} {% else %} {{ url_for('clientes.inserir_clientes') }} {% endif %}" 
+    
+    method="{% if cliente %}PUT{% else %}POST{% endif %}"
+
+    {%if cliente%}
+      c-swap="#cliente-{{cliente.id}}"
+    {%else%}
+      c-append="#lista_clientes"
+    {%endif%}
+    
+    c-reload-container="true">
+
+        <div class="mb-3">
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" name="nome" {%if cliente%} value="{{cliente.nome}}" {% endif %}>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"> Email</label>
+            <input type="text" class="form-control" name="email" {%if cliente%} value="{{cliente.email}}" {% endif %}>
+          </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</body>
+</html>
